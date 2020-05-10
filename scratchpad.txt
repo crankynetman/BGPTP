@@ -1,0 +1,58 @@
+Send Data:
+    - Convert File Data to IPv6 Prefix
+        - Convert file to binary
+        - Split binary into 128 bit chunks, keeping track of the order of the chunks
+        - Convert each chunk into IPv6/128 address format
+        - Render each chunk index into a chunk index BGP community in the Type 2 TLV format
+        - This will result in a list/dictionary of /128 prefixes, each with one community in the Type 2 TLV format applied to the prefix.
+    - Convert file name/path to BGP Community
+        - Convert file name/path to binary (ASCII)
+        - Split file name/path into 8 bit chunks, keeping track of the order of the chunks (index)
+        - Render the file name/path as a list of BGP communities, each community in the Type 1 TLV format. 
+    - Prepare the prefixes for BGP
+        - Take the list of marshalled prefixes and apply the file name/path community list to each prefix.
+    - Advertise Prefixes with BGP
+        - Insert prefixes into the BGP RIB using ExaBGP.
+Receive Data:
+    - Use ExaBGP to pull the prefixes into Python.
+    - Convert IPv6 prefixes to File data
+        - Put all of the prefixes into a list with the Type 2 TLV community as the key, and /128 as the data
+        - Convert each /128 back into binary
+        - Put all Type 1 TLV communities into a list
+        - Split the Type 1 TLVs into their Index/Data pair and put into list
+        - Reconstruct the Type 1 TLV list into a single string, which represents the file name/path.
+        - Reconstruct the prefix data into a single binary blob and then reconvert back to a file.
+
+
+
+
+01000001010000100100001101000100010001010100011001000111010010000100100101001010010010110100110001001101010011100100111101010000
+
+
+
+Community TLV structure
+
+TLV(4 bits)    Value(28 bits)
+
+|--| |--------------------------|
+
+0000:0000000000000000000000000000
+
+
+Filename/path TLV (TLV 1)
+
+TLV1    Index(16 bits)     ASCII Value (8 bits)
+
+|--| |------------------| |------|
+
+0001:00000000000000000000:00000000
+
+
+Chunk Index TLV (TLV 2)
+
+TLV(4 bits)    Value(28 bits)
+
+|--||---------------------------|
+
+0010:0000000000000000000000000000
+
