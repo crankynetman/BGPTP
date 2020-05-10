@@ -1,11 +1,11 @@
-foo = open('foo.txt', 'rb')                                                                                                                                       
+import ipaddress
+
+foo = open('input/foo.txt', 'rb')                                                                                                                                       
 data = foo.read()                                                                                                                                                 
-binary = bin(int.from_bytes(data, byteorder='big'))                                                                                                               
+# binary = bin(int.from_bytes(data, byteorder='big'))                                                                                                               
+fml = data[0:16]
+binary = bin(int.from_bytes(fml, byteorder='big'))
 print(binary)
-
-blob = int(binary, base=2)
-blobbytes = blob.to_bytes(1000,byteorder='big')
-
-with open('test.txt', 'wb') as file:
-    file.write(blobbytes)
-
+print(len(binary))
+ip1 = ipaddress.IPv6Address(fml)
+print(ip1)
