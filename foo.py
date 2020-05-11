@@ -1,3 +1,4 @@
+import ipaddress
 from bitstring import BitArray
 
 foo = open('input/foo.txt', 'rb')                                                                                                                                       
@@ -6,7 +7,7 @@ binary = BitArray(data)
 
  
 global_prefix = '01'
-file_key = '0000000000000100'
+file_key = '0000000000001000'
 
 i = 0
 index1 = 0
@@ -20,13 +21,13 @@ print('\n')
 while index1 < length:
     i += 1
     chunk = binary.bin[index1:index2]
-    print(chunk)
-    print('Iteration: '+ str(i))
-    print('index1')
-    print(index1)
-    print('index2')
-    print(index2)
-    print('\n')
+    # print(chunk)
+    # print('Iteration: '+ str(i))
+    # print('index1')
+    # print(index1)
+    # print('index2')
+    # print(index2)
+    # print('\n')
 
     
     rendered_IP_bin = global_prefix + file_key + chunk
