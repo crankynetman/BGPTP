@@ -1,8 +1,10 @@
 Send Data:
     - Convert File Data to IPv6 Prefix
         - Convert file to binary
+        - Generate 16 bit file key
         - Split binary into 110 bit chunks, keeping track of the order of the chunks
         - Convert each chunk into IPv6/128 address format
+        - [Global Prefix] + [File Key] + [Chunk Data]
         - Render each chunk index into a chunk index BGP community in the Type 2 TLV format
         - This will result in a list/dictionary of /128 prefixes, each with one community in the Type 2 TLV format applied to the prefix.
     - Convert file name/path to BGP Community
@@ -59,7 +61,7 @@ TLV(4 bits)    Value(28 bits)
 
 Padding TLV (TLV 3)
 
-TLV(4 bits)    Bits prepended (28 bits, only up to 7 bits can be used as only there are only 110 Data bits in the prefix)
+TLV(4 bits)    number of bits prepended (28 bits, only up to 7 bits can be used as only there are only 110 total data bits in the prefix)
 
 |--||---------------------------|
 
