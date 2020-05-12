@@ -26,12 +26,6 @@ Receive Data:
         - Reconstruct the prefix data into a single binary blob and then reconvert back to a file.
 
 
-
-
-01000001010000100100001101000100010001010100011001000111010010000100100101001010010010110100110001001101010011100100111101010000
-
-
-
 Community TLV structure
 
 TLV(4 bits)    Value(28 bits)

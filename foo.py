@@ -13,6 +13,9 @@ i = 0
 index1 = 0
 index2 = 110
 length = len(binary.bin)
+
+print(data)
+print('\n')
 print(binary.bin)
 print('\n')
 print(len(binary.bin))
