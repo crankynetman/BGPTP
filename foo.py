@@ -16,15 +16,18 @@ index1 = 0
 index2 = chunk_size
 length = len(binary.bin)
 
-dict = {
-    "Prefix": "",
-    "TLV_1": [],
-    "TLV_2": "",
-    "TLV_3": "",
-}
+
+routes = []
 
 while index1 < length:
     #print(counter)
+    chunk_tlv = ""
+    dict = {
+        "Prefix": "",
+        "TLV_1": [],
+        "TLV_2": "",
+        "TLV_3": "",
+    }
 
     chunk = binary.bin[index1:index2]
     chunk_length = len(chunk)
@@ -47,11 +50,14 @@ while index1 < length:
     dict["Prefix"] = prefix
     # dict["TLV_1"]
     dict["TLV_2"] = chunk_tlv
-    
-
 
     index1 += 110
     index2 += 110
     counter += 1
 
-    pprint(dict)
+    routes.append(dict)
+
+
+#pprint(routes)
+pprint(counter)
+print(len(routes))
